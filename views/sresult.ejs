@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>검색하기 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class = "ml-2 my-3 text-center">검색 결과</h2>
+    <h2 style="text-align: center;">안녕하세요!  <%=currentUser.userid %>님!!!</h2>
+    <div class="container">
+        <ul class ="list-group">
+            <% for(var i=0;i<data.length; i++) { %>
+                <li class="list-group-item">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            <h4 class="card-title"><%= data[i].title %></h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><%=data[i].content %></p>
+                            <h6 class="card-subtitle mb-2 text-muted">작성일 : <%=data[i].date %></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">작성자 : <%=data[i].userid %></h6>
+                            <% if (currentUser && currentUser.userid === data[i].userid) { %> 
+                                <!-- 현재 접속자와 작성자가 같으면 수정하기 버튼을 볼 수 있다 -->
+                                <a href="/edit/<%= data[i]._id %>" class="btn btn-primary">수정하기</a> <!-- /edit/:id 라우터로 이동 -->
+                            <% } %>
+                            <a href="/listmongo" class="btn btn-primary">목록</a>
+                        </div>
+                    </div>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

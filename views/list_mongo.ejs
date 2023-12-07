@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>블로그 메인</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link href="mystyle.css" rel="stylesheet">
+  <style>
+    .center-button {
+      text-align: center;
+      margin-top: 20px;
+
+    }
+
+    a.enter {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    a.enter:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <p></p>
+  <h1 style="text-align: center;">블로그 메인 페이지</h1>
+  <p></p>
+  <h2 style="text-align: center;">안녕하세요! <%=currentUser.userid %>님!!!</h2>
+  <p></p>
+  <div class="container input-group ml-2 my-3">
+    <input class="form-control sword" type="search" placeholder="검색어 검색">
+    <button class="btn btn-success input-group-append sbtn">검색하기</button>
+  </div>
+
+  <table class="table table-hover table-striped text-center container mt-4" style="border: 1px solid;">
+    <thead>
+      <tr>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>삭제</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i=0; i < data.length;i++){ %>
+        <tr>
+          <td><a href="/content/<%=data[i]._id %>">   <!-- 제목 버튼을 누르면 content 창으로 넘어감 -->
+              <%= data[i].title %>
+            </a></td>
+          <td>
+            <%= data[i].userid %></a>
+          </td>
+          <td>
+            <%= data[i].date %></a>
+          </td>
+          <td>
+            <% if (currentUser && currentUser.userid===data[i].userid) { %>  <!-- 현재 접속자 아이디와 작성자 아이디가 같으면 삭제 가능 -->
+              <button class='delete btn btn-outline-danger' data-id='<%=data[i]._id %>'></button>삭제
+              <% } %>
+          </td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+  <div class="center-button">
+    <button class='btn btn-primary enter' onclick="move_enter()">글쓰기</button> <!-- 글쓰기 버튼을 누르면 entermongo 창으로 이동 -->
+    <a href="/logout" class="btn btn-primary enter" style="color: white;">로그아웃</a> <!-- 로그아웃되어 로그인 화면으로 이동 -->
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script>
+    function move_enter() {
+      window.open('/entermongo', '_self');
+    }
+  </script>
+
+  <script>
+    $('.delete').click(function (e) { // 삭제 버튼을 눌렀을 때 
+      let sid = e.target.dataset.id;
+      let item = $(this);
+      $.ajax({
+        type: 'post',
+        url: '/delete',
+        data: { _id: sid }
+      }).done(function (result) { // 응답 성공 
+        e.target.parentNode.parentNode.remove($(this).parent); // 삭제 성공 
+      }).fail(function (xhr, textStatus, errorThrown) { // 응답 실패 
+        console.log('게시물삭제 실패');
+        console.log(xhr, textStatus, errorThrown);
+      })
+    })
+
+    $('.sbtn').click(function () { // 검색 버튼을 눌렀을 때 
+      let inputValue = $('.sword').val();
+      location.href = '\\search?value=' + inputValue; // 쿼리스트링의 데이터가 서버로 전달 
+    })
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

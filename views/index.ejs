@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>나의 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        .login-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <% if(user) { %>  <!--로그인 성공 이후 userid 정보를 가져온다 -->
+        <h3 class="mt-4">반갑습니다. <%= user.userid %>님.</h3>
+        <a href= "/listmongo" class = "btn btn-danger mt-3">나의 블로그로 가기</a> <!-- 블로그 페이지(/listmongo 페이지로 이동)-->
+        <a href="/logout" class="btn btn-danger mt-3">로그아웃</a> <!-- 로그인 페이지(/logout 페이지로 이동)-->
+        <% } else { %> <!-- 로그인 실패 -->
+        <h3 class="mt-4">로그인 실패</h3>
+        <% } %>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>블로그 내용</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%=data.title %></h5>
+                    <p class="card-text"><%=data.content %></p>
+                    <h6 class="card-subtitle mb-2 text-muted">작성일 : <%=data.date %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted">작성자 : <%=data.userid %></h6>
+                    <% if (isCurrentUserAuthor) { %>    <!-- 현재 접속자와 작성자가 같으면 수정하기 버튼이 보인다 -->
+                        <a href="/edit/<%= data._id %>" class="btn btn-primary">수정하기</a>
+                    <% } %>
+                    <a href="/listmongo" class="btn btn-primary">목록</a>  <!-- 블로그 페이지로 이동(listmongo)  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

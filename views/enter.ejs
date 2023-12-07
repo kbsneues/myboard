@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>블로그 글 작성</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+      </head>
+      <body>
+          <h1 style="text-align: center;">블로그 글 작성</h1>
+          <div class = "container mt-4">
+            <form action="/savemongo" method="post">
+              <div class="form-group">
+                <label>제목</label>
+                <input type="text" name="title" class="form-control">
+              </div><p></p>
+              <div class="form-group">
+                <label for="formFile">내용</label>
+                <div class="mb-3">
+                    <input class="form-control" type="file" id="formFile" onchange="readFile()"> <!-- 텍스트 파일(.txt) 선택하면 textarea 창에 파일 내용을 확인할 수 있다 -->
+                </div>
+                <textarea name="content" id="textContent" rows='10' class="form-control"></textarea>
+
+                </div>
+                <p></p>
+                <button type="submit" class="btn btn-warning" style="float: right;">저장</button> <!-- 저장 버튼 누르면 /savemongo 로 post 요청 -->
+              </div>
+            </form>
+          </div>
+
+
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+      <script>
+        function readFile() {
+
+            var fileInput = document.getElementById('formFile'); // 파일 입력 요소 가져오기
+            
+            if (fileInput.files.length > 0) { // 파일이 선택되었는지 확인
+                var file = fileInput.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function(e) { // 파일을 읽기 시작할 때 실행되는 이벤트 핸들러
+                    var textContent = document.getElementById('textContent'); // 파일 내용을 textarea에 넣기
+                    textContent.value = e.target.result;
+                };
+                reader.readAsText(file); // 파일 읽기 시작
+            }
+        }
+    </script>
+      </body>
+</html>

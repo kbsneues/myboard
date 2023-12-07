@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>회원가입 페이지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script>
+    function checkpw() {  // 비밀번호와 비밀번호 확인 값이 같고, 아이디 값과 비밀번호 값이 빈 문자열이 아니면 회원 가입 성공 
+      if (
+        member.userpw.value !== '' &&
+        member.confirmpw.value !== '' &&
+        member.userpw.value === member.confirmpw.value &&
+        member.userid.value !== ''
+      ) {
+        alert('회원가입을 성공하였습니다!');
+        return true;
+      } else { // 회원가입 실패
+        alert('회원가입이 실패하였습니다');
+        return false;
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <h1 style="text-align: center;">블로그 로그인 화면</h1>
+  <div class="container mt-4">
+    <form name='member' action="/signup" method="post" onsubmit="return checkpw()">
+      <div class="form-group">
+        <label>아이디</label>
+        <input type="text" name="userid" class="form-control">
+      </div>
+      <p></p>
+      <div class="form-group">
+        <label>비밀번호</label>
+        <input type="password" name="userpw" class="form-control">
+      </div>
+      <p></p>
+      <div class="form-group">
+        <label>비밀번호 확인</label>
+        <input type="password" name="confirmpw" class="form-control">
+      </div>
+      <p></p>
+      <div class="form-group">
+        <label>소속</label>
+        <input type="text" name="usergroup" class="form-control">
+      </div>
+      <p></p>
+      <div class="form-group">
+        <label>이메일</label>
+        <input type="text" name="useremail" class="form-control">
+      </div>
+      <p></p>
+      <button type="submit" class="btn btn-primary" style="float: right;">가입</button>
+      <!-- 가입 버튼을 누르면 /signup으로 post 요청, checkpw() 호출 -->
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
